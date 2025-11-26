@@ -102,26 +102,53 @@
 
 <section class="payment" id="payment">
     <h2>Book & Pay</h2>
-    <p>Enter the amount in ZAR and pay securely via Yoco:</p>
-    <input type="number" id="amountInput" placeholder="Enter amount" min="1">
-    <a href="#" id="payButton" target="_blank">
-        <button>Pay Now</button>
-    </a>
+    <p>Secure your tickets now via Yoco:</p>
+
+    <!-- Early Bird Ticket Payment -->
+    <div style="margin-bottom: 30px;">
+        <h3>Early Bird Ticket</h3>
+        <input type="number" id="earlyAmount" placeholder="Enter amount for Early Bird" min="1">
+        <a href="#" id="earlyPayButton" target="_blank">
+            <button>Pay Early Bird</button>
+        </a>
+    </div>
+
+    <!-- General Access Payment -->
+    <div>
+        <h3>General Access</h3>
+        <input type="number" id="generalAmount" placeholder="Enter amount for General Access" min="1">
+        <a href="#" id="generalPayButton" target="_blank">
+            <button>Pay General Access</button>
+        </a>
+    </div>
 </section>
 
 <script>
-    const amountInput = document.getElementById('amountInput');
-    const payButton = document.getElementById('payButton');
+    // Replace these with your actual Yoco links
+    const earlyBaseUrl = "https://pay.yoco.com/kirstens-events?reference=EarlyBird";
+    const generalBaseUrl = "https://pay.yoco.com/kirstens-events?reference=GeneralAccess";
 
-    // Yoco Payment Page URL
-    const yocoBaseUrl = "https://pay.yoco.com/kirstens-events";
+    const earlyInput = document.getElementById('earlyAmount');
+    const earlyButton = document.getElementById('earlyPayButton');
 
-    amountInput.addEventListener('input', () => {
-        const amount = parseFloat(amountInput.value);
+    const generalInput = document.getElementById('generalAmount');
+    const generalButton = document.getElementById('generalPayButton');
+
+    earlyInput.addEventListener('input', () => {
+        const amount = parseFloat(earlyInput.value);
         if(amount > 0){
-            payButton.href = `${yocoBaseUrl}?amount=${amount.toFixed(2)}&reference=EventBooking`;
+            earlyButton.href = `${earlyBaseUrl}&amount=${amount.toFixed(2)}`;
         } else {
-            payButton.href = "#";
+            earlyButton.href = "#";
+        }
+    });
+
+    generalInput.addEventListener('input', () => {
+        const amount = parseFloat(generalInput.value);
+        if(amount > 0){
+            generalButton.href = `${generalBaseUrl}&amount=${amount.toFixed(2)}`;
+        } else {
+            generalButton.href = "#";
         }
     });
 </script>
